@@ -1,0 +1,49 @@
+{
+  "cancer_type": "Panc-AdenoCA",
+  "n_samples": 239,
+  "n_bins": 3053,
+  "n_signatures": 8,
+  "signatures": [
+    "SBS1",
+    "SBS2",
+    "SBS3",
+    "SBS5",
+    "SBS13",
+    "SBS17a",
+    "SBS17b",
+    "SBS18"
+  ],
+  "hparams": {
+    "hidden": 64,
+    "heads": 4,
+    "dropout": 0.1,
+    "lr": 0.001,
+    "epochs": 300,
+    "lambda_tad": 0.0,
+    "lambda_l2": 0.0001,
+    "patience": 30
+  },
+  "models": {
+    "M_none": {
+      "cos_mean": 0.9411154144960763,
+      "cos_std": 0.021919320720638628,
+      "median": 0.9407653019002418,
+      "time_sec": 593.5238299369812,
+      "best_loss": 6.164613979630889
+    },
+    "M_1d": {
+      "cos_mean": 0.9770534804414013,
+      "cos_std": 0.019360389488711605,
+      "median": 0.980712075152829,
+      "time_sec": 2360.8657734394073,
+      "best_loss": 6.84966505184832
+    },
+    "M_hic": {
+      "cos_mean": 0.9761185130945388,
+      "cos_std": 0.019725780968870704,
+      "median": 0.9797066165164762,
+      "time_sec": 2883.7302753925323,
+      "best_loss": 7.031185224465246
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "cancer_type": "Eso-AdenoCa",
+  "n_samples": 98,
+  "n_bins": 3053,
+  "n_signatures": 8,
+  "signatures": [
+    "SBS1",
+    "SBS2",
+    "SBS3",
+    "SBS5",
+    "SBS13",
+    "SBS17a",
+    "SBS17b",
+    "SBS18"
+  ],
+  "hparams": {
+    "hidden": 64,
+    "heads": 4,
+    "dropout": 0.1,
+    "lr": 0.001,
+    "epochs": 300,
+    "lambda_tad": 0.0,
+    "lambda_l2": 0.0001,
+    "patience": 30
+  },
+  "models": {
+    "M_none": {
+      "cos_mean": 0.979321872907405,
+      "cos_std": 0.019494574352342062,
+      "median": 0.984460132178341,
+      "time_sec": 334.31234407424927,
+      "best_loss": 19.068935534859797
+    },
+    "M_1d": {
+      "cos_mean": 0.9893645879526037,
+      "cos_std": 0.020847214341109938,
+      "median": 0.9926717972345735,
+      "time_sec": 1035.4678452014923,
+      "best_loss": 20.73358051935021
+    },
+    "M_hic": {
+      "cos_mean": 0.9893259516876619,
+      "cos_std": 0.02129752662566501,
+      "median": 0.9932257293284144,
+      "time_sec": 978.7819612026215,
+      "best_loss": 20.832220899967513
+    }
+  }
+}

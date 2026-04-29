@@ -1,0 +1,18 @@
+{
+  "encoder_hidden": 64,
+  "encoder_heads": 4,
+  "encoder_dropout": 0.1,
+  "encoder_layers": 3,
+  "lr": 0.001,
+  "weight_decay": 0,
+  "epochs": 300,
+  "patience": 30,
+  "lambda_tad": 0.0,
+  "lambda_l2": 0.0001,
+  "lambda_cos": 0.0,
+  "loss": "KL_divergence",
+  "decoder": "frozen_COSMIC_H",
+  "resolution_mb": 1,
+  "n_bins": 3053,
+  "n_signatures_per_cancer": "varies (6-10)"
+}
