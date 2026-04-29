@@ -1,11 +1,7 @@
-# GraphHiC — Appendix code & results
+# GraphHiC — Appendix code & results (의학연구입문)
 
-**연구계획서**: *GraphHiC: Hi-C 3D 게놈 그래프 기반 공간 돌연변이 시그니처 분해*
-연구계획서 본문 §1.1–1.3, "위 모델의 현실성을 4개 암종(피부·간·식도·췌장) 코호트와 cell line Hi-C에 대해 사전검증하였다"의
-근거가 되는 분석 코드와 정량 결과를 모은 저장소이다.
-
-본 저장소는 연구계획서 ***Appendix***에서 인용된 자료에 한해 발췌한 minimal package이며,
-프로젝트 전체 코드와 데이터는 실험 종료 후 별도로 공개될 예정이다.
+**연구제안서**: *GraphHiC: Hi-C 3D 게놈 그래프 기반 공간 돌연변이 시그니처 분해*
+제안서의 모델(GraphHiC)의 사전검증 분석코드와 정량적인 결과를 정리하였습니다.
 
 ---
 
@@ -26,8 +22,7 @@ COSMIC SBS 행렬 H를 decoder로 사용해 V̂ = Z·H로 복원.
 cosine similarity.
 **(E)** 3-way ablation — `M_none` (MLP, no graph) / `M_1d` (GAT + 1D)
 / `M_hic` (GAT + 1D + Hi-C). 각 panel 하단에 표시된 cosine 값(0.85 /
-0.89 / 0.93)은 Liver-HCC pilot 기준의 도식적 예시이며, 실제 8개
-PCAWG 코호트 결과는 §3.1.
+0.89 / 0.93)은 Liver-HCC pilot 기준의 도식적 예시이다.
 
 ---
 
@@ -125,7 +120,7 @@ Decoder  Z · H̄                          # H̄ : COSMIC v3.4 SBS matrix (k × 
 | Panc-AdenoCA   | 239 | 0.941 | 0.977 | **0.976** | +0.036 | −0.001 |
 
 > 4개 암종 모두에서 **M_hic ∈ [0.93, 0.99]** 로 NNLS GT를 안정적으로 복원.
-> Graph 도입(`M_1d − M_none`)이 모든 암종에서 양수, 즉 **bin 단위 sparse 입력에서도 모델이 수렴**한다는 일차 증거.
+> Graph 도입(`M_1d − M_none`)이 모든 암종에서 양수, 즉 **bin 단위 sparse 입력에서도 모델이 수렴**한다는 일차 증거이다.
 > Hi-C edge 추가 효과(`M_hic − M_1d`)는 cancer-type-dependent — 1D만으로 이미 saturate된 케이스가 존재.
 
 원본 수치: [`results/final_summary.json`](results/final_summary.json),
@@ -150,7 +145,7 @@ Per-sample Spearman ρ ( total Z vs Compartment PC1 ) — 모든 환자에서
 
 또한 **clock-like SBS1의 spatial CV** (per-sample 표준편차 / 평균)는
 graph 모델에서 일관되게 감소 — 시간에 비례해 게놈 전체에 균일하게
-누적되는 SBS1의 *알려진 거동* 과 일치 (Skin은 SBS1이 graph 모델에서
+누적되는 SBS1의 *알려진 거동* 과 일치한다. (Skin은 SBS1이 graph 모델에서
 collapse되어 비교 불가).
 
 | Cancer | M_none CV | M_1d CV | **M_hic CV** | Wilcoxon p |
@@ -165,23 +160,7 @@ collapse되어 비교 불가).
 
 ---
 
-## 4. Caveats & ongoing work
-
-- Hi-C edge가 graph density 효과 이상의 **고유 정보**를 더하는지 분리하기
-  위한 degree-preserving rewiring 대조 실험(`M_random`)이 진행 중이다.
-  (8 cancer × 3 seed, 본 appendix 작성 시점에 학습 단계.)
-- Skin-Melanoma는 SBS7a–d / SBS11이 강한 dominance를 갖는 코호트로,
-  graph 모델에서 SBS1이 다른 시그니처로 흡수(collapse)되는 현상이
-  관찰된다. `experiments/z_persample_validation/results/FOLLOWUP_RESULTS.md`
-  에서 이 현상이 reconstruction artifact가 아니라 모델 capacity와
-  signature redundancy의 결과임을 확인하였다.
-- 1Mb resolution은 spatial pattern을 보존하면서 학습 안정성을 확보하기
-  위한 trade-off — 보다 높은 resolution(250 kb / 100 kb)에서의 결과는
-  본 연구의 Aim 1에서 다룬다.
-
----
-
-## 5. Repository layout
+## 4. Repository layout
 
 ```
 appendix_graphhic/
@@ -194,7 +173,7 @@ appendix_graphhic/
 │   └── make_spatial_figure.py      # totalZ–compartment + SBS1 CV
 ├── results/
 │   ├── HPARAMS.json
-│   ├── final_summary.json          # 8개 PCAWG 결과 (4개 암종 발췌 사용)
+│   ├── final_summary.json          # 4개 PCAWG 결과
 │   ├── summary_table.csv
 │   ├── persample_results.json      # per-sample biological validation 출력
 │   └── {Cancer}_results.json       # 4개 암종 detailed result
@@ -214,7 +193,3 @@ python code/train_4cancer.py            # GPU 1대 기준 ~2시간 / 암종
 python code/make_appendix_figures.py    # 결과 → figures/
 python code/make_spatial_figure.py      # spatial evidence figure
 ```
-
-학습용 PCAWG mutation 매트릭스와 Hi-C contact matrix는 데이터 사용
-승인이 필요하므로 본 저장소에서 직접 제공하지 않는다.
-가공된 1 Mb adjacency · bin info는 요청 시 제공 가능.
